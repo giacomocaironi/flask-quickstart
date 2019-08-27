@@ -1,0 +1,29 @@
+@media screen and (min-width: 992px){
+  .horizontal-feeds{
+    display: none !important;
+  }
+}
+
+.horizontal-feeds{
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.card-horizontal-scroll{
+  display: inline-block;
+}
+
+.url{
+  font-size: 1.5em;
+}
+
+.next-url{
+  float: right;
+}
+
+.card-feed{
+  /* background-color: orange; */
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+}
