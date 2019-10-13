@@ -7,7 +7,8 @@ from flask_login import LoginManager
 from flask_admin import Admin
 
 app = Flask(__name__)
-if config("FLASK_DEBUG"):
+debug = config("DEBUG", default=False, cast=bool)
+if debug:
     config = DevelopmentConfig
 else:
     config = ProductionConfig
