@@ -7,9 +7,9 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config(object):
     SECRET_KEY = config("SECRET_KEY", default="hgdk;4lAgjadkls;AEGs")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    LOG_TO_STDOUT = config("LOG_TO_STDOUT")
     REMEMBER_COOKIE_HTTPONLY = True
     ADMINS = config("AMINS", default="").split(", ")
+    NAME = config("NAME", default="")
 
 
 class DevelopmentConfig(Config):
