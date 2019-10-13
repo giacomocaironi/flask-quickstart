@@ -8,7 +8,6 @@ class Config(object):
     SECRET_KEY = config("SECRET_KEY", default="hgdk;4lAgjadkls;AEGs")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     REMEMBER_COOKIE_HTTPONLY = True
-    ADMINS = config("AMINS", default="").split(", ")
     NAME = config("NAME", default="")
 
 

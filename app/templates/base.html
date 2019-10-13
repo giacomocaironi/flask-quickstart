@@ -40,7 +40,7 @@
               <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
             {% endif %}
 
-            {% if current_user.username in config["ADMINS"] %}
+            {% if current_user.is_admin %}
             <div class="nav-item active">
               <a class="nav-link" href="{{ url_for('admin.index') }}">Admin</a>
             </div>
