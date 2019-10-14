@@ -10,11 +10,16 @@ def create():
 
 @create.command()
 def superuser():
-    username = input("username: ")
-    email = input("email: ")
-    password = input("password: ")
-    user = User(username=username, email=email)
-    user.set_password(password)
-    user.is_admin = True
-    db.session.add(user)
-    db.session.commit()
+    username = click.prompt("Username")
+    email = click.prompt("Email")
+    password = click.prompt(
+        "Password", hide_input=True, confirmation_prompt="Repeat Password"
+    )
+    try:
+        user = User(username=username, email=email)
+        user.set_password(password)
+        user.is_admin = True
+        db.session.add(user)
+        db.session.commit()
+    except:
+        click.echo("An error has occurred")
