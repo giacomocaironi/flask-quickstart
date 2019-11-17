@@ -4,3 +4,4 @@ __pycache__/
 .env
 *.db
 .DS_STORE
+migrations
