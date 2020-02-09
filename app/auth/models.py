@@ -2,8 +2,10 @@ from app import db, login
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-
 from hashlib import md5
+from time import time
+from flask import current_app as app
+import jwt
 
 
 @login.user_loader
@@ -23,6 +25,23 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def generate_password_reset_token(self, expires_in=600):
+        payload = {"user_id": self.id, "exp": time() + expires_in}
+        token = jwt.encode(payload, app.config["SECRET_KEY"], algorithm="HS256")
+        return token.decode("utf-8")
+
+    @staticmethod
+    def verify_password_reset_token(token):
+        try:
+            payload = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
+            id = payload["user_id"]
+        except:
+            return
+        user = User.query.get(id)
+        if not user:
+            return None
+        return user
 
     def __repr__(self):
         return "<User {}>".format(self.username)
