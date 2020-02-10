@@ -43,8 +43,42 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for("auth.login"))
+        login_user(user)
+        return redirect(url_for("auth.unconfirmed"))
     return render_template("auth/register.html", form=form)
+
+
+@auth_blueprint.route("/confirm", methods=["GET"])
+@login_required
+def request_confirmation_email():
+    if current_user.is_confirmed:
+        return redirect(url_for("main.index"))
+    send_confirmation_email(current_user)
+    return redirect(url_for("auth.unconfirmed"))
+
+
+@auth_blueprint.route("/unconfirmed", methods=["GET"])
+@login_required
+def unconfirmed():
+    if current_user.is_confirmed:
+        return redirect(url_for("main.index"))
+    return render_template("auth/unconfirmed.html")
+
+
+@auth_blueprint.route("/confirm/<token>", methods=["GET"])
+def confirm_account(token):
+    if current_user.is_authenticated:
+        if current_user.is_confirmed:
+            return redirect(url_for("main.index"))
+    user = User.verify_token(token)
+    if not user:
+        return redirect(url_for("main.index"))
+    try:
+        user.is_confirmed = True
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+    return redirect(url_for("main.index"))
 
 
 @auth_blueprint.route("/reset", methods=["GET", "POST"])
@@ -66,7 +100,7 @@ def reset_password(token):
     if current_user.is_authenticated:
         return redirect(url_for("main.index"))
     form = ResetPasswordForm()
-    user = User.verify_password_reset_token(token)
+    user = User.verify_token(token)
     if not user:
         return redirect(url_for("main.index"))
     if form.validate_on_submit():

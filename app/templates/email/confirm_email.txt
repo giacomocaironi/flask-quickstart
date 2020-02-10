@@ -1,0 +1,7 @@
+Dear {{ user.username }},
+
+To confirm your account click on the following link:
+
+{{ url_for('auth.confirm_account', token=token, _external=True) }}
+
+If you have not registered for this site simply ignore this message.

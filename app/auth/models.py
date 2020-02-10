@@ -19,6 +19,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(128), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     is_admin = db.Column(db.Boolean, default=False)
+    is_confirmed = db.Column(db.Boolean, default=False)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -26,18 +27,18 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def generate_password_reset_token(self, expires_in=600):
+    def generate_token(self, expires_in=600):
         payload = {"user_id": self.id, "exp": time() + expires_in}
         token = jwt.encode(payload, app.config["SECRET_KEY"], algorithm="HS256")
         return token.decode("utf-8")
 
     @staticmethod
-    def verify_password_reset_token(token):
+    def verify_token(token):
         try:
             payload = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
             id = payload["user_id"]
         except:
-            return
+            return None
         user = User.query.get(id)
         if not user:
             return None
