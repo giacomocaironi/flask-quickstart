@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import *
 from wtforms.validators import *
-from app.admin.models import Model
+from app.admin.models import *
 
 
-class Form(FlaskForm):
-    pass
+# class Form(FlaskForm):
+#     pass
