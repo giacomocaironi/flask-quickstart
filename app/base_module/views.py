@@ -4,5 +4,5 @@ from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from app.auth import confirmation_required
 from app.base import base_blueprint
-from app.base.models import Model
-from app.base.forms import Form
+from app.base.models import *
+from app.base.forms import *
