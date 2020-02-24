@@ -15,4 +15,14 @@ def confirmation_required(func):
     return decorated_function
 
 
+def admin_required(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_admin:
+            return redirect(url_for("main.index"))
+        return func(*args, **kwargs)
+
+    return decorated_function
+
+
 from app.auth import forms, models, views
