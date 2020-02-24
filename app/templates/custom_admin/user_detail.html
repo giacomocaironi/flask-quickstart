@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>User detail</h1>
+<form class="" action="" method="post" novalidate>
+  {{form.hidden_tag()}}
+
+  <p>
+    {{form.username.label}}
+    <br>
+    {{form.username}}
+    {% for error in form.username.errors %}
+    {{error}}
+    {% endfor %}
+  </p>
+
+  <p>
+    {{form.email.label}}
+    <br>
+    {{form.email}}
+    {% for error in form.email.errors %}
+    {{error}}
+    {% endfor %}
+  </p>
+
+  <p>
+    {{form.password_hash.label}}
+    <br>
+    {{form.password_hash}}
+    {% for error in form.password_hash.errors %}
+    {{error}}
+    {% endfor %}
+  </p>
+
+  <p>
+    {{form.is_admin.label}}
+    <br>
+    {{form.is_admin}}
+    {% for error in form.is_admin.errors %}
+    {{error}}
+    {% endfor %}
+  </p>
+
+  <p>
+    {{form.is_confirmed.label}}
+    <br>
+    {{form.is_confirmed}}
+    {% for error in form.is_confirmed.errors %}
+    {{error}}
+    {% endfor %}
+  </p>
+
+  <p>{{form.submit}}</p>
+</form>
+{% endblock content %}
