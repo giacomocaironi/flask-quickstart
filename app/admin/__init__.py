@@ -15,3 +15,10 @@ class AdminModelView(ModelView):
 
 
 admin_app.add_view(AdminModelView(User, db.session))
+
+
+from flask import Blueprint
+
+admin_blueprint = Blueprint("custom_admin", __name__)
+
+from app.admin import forms, models, views
