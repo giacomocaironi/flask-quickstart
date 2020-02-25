@@ -3,6 +3,7 @@ from flask_login import current_user
 from flask_admin.contrib.sqla import ModelView
 from app import db, admin_app
 from app.auth.models import User
+from app.blog.models import *
 
 
 class AdminModelView(ModelView):
@@ -15,6 +16,9 @@ class AdminModelView(ModelView):
 
 
 admin_app.add_view(AdminModelView(User, db.session))
+admin_app.add_view(AdminModelView(Post, db.session))
+admin_app.add_view(AdminModelView(Category, db.session))
+admin_app.add_view(AdminModelView(Tag, db.session))
 
 
 from flask import Blueprint
