@@ -4,12 +4,12 @@ from app.auth.models import User
 
 
 @app.cli.group()
-def create():
+def new():
     pass
 
 
 @create.command()
-def superuser():
+def admin():
     username = click.prompt("Username")
     email = click.prompt("Email")
     password = click.prompt(
