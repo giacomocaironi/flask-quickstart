@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Admin</h1>
+{% for object in objects %}
+<a href="edit/{{object.id}}">{{object.username}}</a>
+{% endfor %}
+{% endblock content %}

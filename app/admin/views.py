@@ -16,13 +16,33 @@ def admin_index():
     return render_template("custom_admin/index.html")
 
 
-@admin_blueprint.route("/user/<user_id>", methods=["GET", "POST"])
+@admin_blueprint.route("/user/edit/<id>", methods=["GET", "POST"])
 @admin_required
-def user_detail(user_id):
-    user = User.query.filter_by(id=user_id).first_or_404()
-    form = UserDetail(obj=user)
+def user_detail(id):
+    user = User.query.filter_by(id=id).first_or_404()
+    form = UserForm(obj=user)
     if form.validate_on_submit():
         form.populate_obj(user)
         db.session.commit()
-        return redirect(url_for("custom_admin.user_detail", user_id=user_id))
-    return render_template("custom_admin/user_detail.html", form=form)
+        return redirect(url_for("custom_admin.user_detail", id=id))
+    return render_template("custom_admin/edit.html", form=form)
+
+
+@admin_blueprint.route("/user/create", methods=["GET", "POST"])
+@admin_required
+def create_user():
+    form = UserForm()
+    if form.validate_on_submit():
+        user = User()
+        form.populate_obj(user)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for("custom_admin.create_user"))
+    return render_template("custom_admin/create.html", form=form)
+
+
+@admin_blueprint.route("/user/", methods=["GET", "POST"])
+@admin_required
+def list_users():
+    users = User.query.all()
+    return render_template("custom_admin/list.html", objects=users, model="user")
