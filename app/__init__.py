@@ -34,6 +34,10 @@ from app.admin import admin_blueprint
 
 app.register_blueprint(admin_blueprint, url_prefix="/custom_admin")
 
+from app.blog import blog_blueprint
+
+app.register_blueprint(blog_blueprint, url_prefix="/blog")
+
 from app.errors import errors_blueprint
 
 app.register_blueprint(errors_blueprint)
