@@ -15,10 +15,14 @@ class AdminModelView(ModelView):
         return redirect(url_for("login", next=request.url))
 
 
-admin_app.add_view(AdminModelView(User, db.session))
-admin_app.add_view(AdminModelView(Post, db.session))
-admin_app.add_view(AdminModelView(Category, db.session))
-admin_app.add_view(AdminModelView(Tag, db.session))
+class UserView(AdminModelView):
+    column_exclude_list = ["password_hash"]
+
+
+admin_app.add_view(UserView(User, db.session))
+admin_app.add_view(AdminModelView(Post, db.session, category="Blog"))
+admin_app.add_view(AdminModelView(Category, db.session, category="Blog"))
+admin_app.add_view(AdminModelView(Tag, db.session, category="Blog"))
 
 
 from flask import Blueprint
