@@ -25,4 +25,4 @@ def admin_required(func):
     return decorated_function
 
 
-from app.auth import forms, models, views
+from app.auth import forms, models, views, admin
