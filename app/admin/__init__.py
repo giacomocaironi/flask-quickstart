@@ -23,10 +23,3 @@ admin_app.add_view(UserView(User, db.session))
 admin_app.add_view(AdminModelView(Post, db.session, category="Blog"))
 admin_app.add_view(AdminModelView(Category, db.session, category="Blog"))
 admin_app.add_view(AdminModelView(Tag, db.session, category="Blog"))
-
-
-from flask import Blueprint
-
-admin_blueprint = Blueprint("custom_admin", __name__)
-
-from app.admin import forms, models, views
