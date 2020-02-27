@@ -12,8 +12,8 @@ from app.auth.models import User
 
 @admin_blueprint.route("/")
 @admin_required
-def admin_index():
-    return render_template("custom_admin/index.html")
+def index():
+    return render_template("admin/index.html")
 
 
 @admin_blueprint.route("/user/edit/<id>", methods=["GET", "POST"])
@@ -24,8 +24,8 @@ def user_detail(id):
     if form.validate_on_submit():
         form.populate_obj(user)
         db.session.commit()
-        return redirect(url_for("custom_admin.user_detail", id=id))
-    return render_template("custom_admin/edit.html", form=form)
+        return redirect(url_for("admin.user_detail", id=id))
+    return render_template("admin/edit.html", form=form)
 
 
 @admin_blueprint.route("/user/create", methods=["GET", "POST"])
@@ -37,12 +37,12 @@ def create_user():
         form.populate_obj(user)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for("custom_admin.create_user"))
-    return render_template("custom_admin/create.html", form=form)
+        return redirect(url_for("admin.create_user"))
+    return render_template("admin/create.html", form=form)
 
 
 @admin_blueprint.route("/user/", methods=["GET", "POST"])
 @admin_required
 def list_users():
     users = User.query.all()
-    return render_template("custom_admin/list.html", objects=users, model="user")
+    return render_template("admin/list.html", objects=users, model="user")
