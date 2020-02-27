@@ -12,3 +12,6 @@ class AdminModelView(ModelView):
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
         return redirect(url_for("login", next=request.url))
+
+
+# admin_app.add_view(AdminModelView(Model, db.session, category=None))
