@@ -4,4 +4,5 @@ __pycache__/
 .env
 *.db
 .DS_STORE
+.python-version
 migrations
