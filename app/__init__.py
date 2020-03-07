@@ -20,11 +20,14 @@ login = LoginManager(app)
 login.login_view = "auth.login"
 admin_app = Admin(app, name="Flask quickstart", template_mode="bootstrap3")
 mail = Mail(app)
-bootstrap = Bootstrap(app)
 
 from app.auth import auth_blueprint
 
 app.register_blueprint(auth_blueprint, url_prefix="/auth")
+
+from app.errors import errors_blueprint
+
+app.register_blueprint(errors_blueprint)
 
 from app.main import main_blueprint
 
@@ -33,7 +36,3 @@ app.register_blueprint(main_blueprint, url_prefix="/")
 from app.blog import blog_blueprint
 
 app.register_blueprint(blog_blueprint, url_prefix="/blog")
-
-from app.errors import errors_blueprint
-
-app.register_blueprint(errors_blueprint)
