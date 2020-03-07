@@ -35,7 +35,9 @@ class User(db.Model, UserMixin):
     @staticmethod
     def verify_token(token):
         try:
-            payload = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
+            payload = jwt.decode(
+                token, app.config["SECRET_KEY"], algorithms=["HS256"]
+            )  # automatically check expire time
             id = payload["user_id"]
         except:
             return None
