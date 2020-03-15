@@ -2,7 +2,7 @@ FROM python:3.8-alpine
 
 RUN adduser -D flask
 
-WORKDIR /home/flask_quickstart
+WORKDIR /home/flask/flask_quickstart
 
 COPY requirements.txt requirements.txt
 RUN python -m venv env
@@ -12,6 +12,9 @@ COPY app app
 COPY migrations migrations
 COPY wsgi.py config.py boot.sh ./
 RUN chmod +x boot.sh
+
+ENV FLASK_APP wsgi.py
+ENV FLASK_ENV development
 
 RUN chown -R flask:flask ./
 USER flask

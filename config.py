@@ -33,5 +33,6 @@ class ProductionConfig(Config):
         "DATABASE_URL", default="sqlite:///" + os.path.join(basedir, "production.db")
     )
     MAIL_USE_TLS = 1
+    # remember to setup https or the site won't work
     SESSION_COOKIE_SECURE = True
     REMEMBER_COOKIE_SECURE = True

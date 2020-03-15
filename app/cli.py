@@ -22,6 +22,7 @@ def admin():
         user = User(username=username, email=email)
         user.set_password(password)
         user.is_admin = True
+        user.is_confirmed = True
         db.session.add(user)
         db.session.commit()
     except:
