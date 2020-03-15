@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_admin import Admin
 from flask_mail import Mail
-from flask_bootstrap import Bootstrap
+from flask_paranoid import Paranoid
 
 app = Flask(__name__)
 if config("DEBUG", default=False, cast=bool):
@@ -20,6 +20,8 @@ login = LoginManager(app)
 login.login_view = "auth.login"
 admin_app = Admin(app, name="Flask quickstart", template_mode="bootstrap3")
 mail = Mail(app)
+paranoid = Paranoid(app)
+paranoid.redirect_view = "main.index"
 
 from app.auth import auth_blueprint
 
