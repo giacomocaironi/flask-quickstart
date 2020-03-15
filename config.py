@@ -13,12 +13,19 @@ class Config(object):
     MAIL_PORT = config("MAIL_PORT", default=8025, cast=int)
     MAIL_USERNAME = config("MAIL_USERNAME", default="")
     MAIL_PASSWORD = config("MAIL_PASSWORD", default="")
+    DEBUG = False
+    TESTING = False
 
 
 class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = config(
         "DATABASE_URL", default="sqlite:///" + os.path.join(basedir, "development.db")
     )
+    DEBUG = True
+
+
+class TestingConfig(Config):
+    TESTING = True
 
 
 class ProductionConfig(Config):

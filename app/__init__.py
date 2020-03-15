@@ -1,6 +1,5 @@
-from decouple import config
 from flask import Flask
-from config import DevelopmentConfig, ProductionConfig
+from config import DevelopmentConfig, ProductionConfig, TestingConfig
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
@@ -9,11 +8,15 @@ from flask_mail import Mail
 from flask_paranoid import Paranoid
 
 app = Flask(__name__)
-if config("DEBUG", default=False, cast=bool):
-    config = DevelopmentConfig
+if app.config["ENV"] == "development":
+    app.config.from_object(DevelopmentConfig)
+elif app.config["ENV"] == "testing":
+    app.config.from_object(TestingConfig)
+elif app.config["ENV"] == "production":
+    app.config.from_object(ProductionConfig)
 else:
-    config = ProductionConfig
-app.config.from_object(config)
+    print("Unkown configuration name")
+    raise
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)

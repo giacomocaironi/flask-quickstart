@@ -1,7 +1,4 @@
-env/
 __pycache__/
-.flaskenv
-.env
 *.db
 .DS_STORE
 .python-version
