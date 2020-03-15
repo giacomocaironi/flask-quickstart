@@ -1,4 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-    <a href="{{ url_for('auth.request_confirmation_email') }}"><h1>Confirm email</h1></a>
+    <p>An email has been sent to your email account to complete the registration</p>
+    <p>You can sent the mail again by clicking <a href="{{ url_for('auth.request_confirmation_email') }}">here</a></p>
 {% endblock content %}

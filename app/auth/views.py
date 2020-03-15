@@ -44,7 +44,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return redirect(url_for("auth.unconfirmed"))
+        return redirect(url_for("auth.request_confirmation_email"))
     return render_template("auth/register.html", form=form)
 
 
@@ -76,6 +76,7 @@ def confirm_account(token):
     try:
         user.is_confirmed = True
         db.session.commit()
+        logout_user()
     except Exception as e:
         db.session.rollback()
     return redirect(url_for("main.index"))
