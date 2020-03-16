@@ -10,10 +10,9 @@ RUN env/bin/pip install -r requirements.txt
 
 COPY app app
 COPY migrations migrations
-COPY wsgi.py config.py boot.sh ./
+COPY wsgi.py config.py .env boot.sh ./
 RUN chmod +x boot.sh
 
-ENV FLASK_APP wsgi.py
 ENV FLASK_ENV development
 
 RUN chown -R flask:flask ./
