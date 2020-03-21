@@ -42,21 +42,12 @@ def module(name):
     os.mkdir(os.path.join("app", "templates", name))
     for file in os.listdir(os.path.join("utilities", "base_module")):
         with open(os.path.join("utilities", "base_module", file), "r") as raw:
+            rendered_file = Template(raw.read()).render(name=name)
             if file == "index.html":
-                rendered_file = (
-                    """{% extends "base.html" %}
-{% block content %}
-<h1>"""
-                    + name
-                    + """</h1>
-{% endblock content %}
-                """
-                )
                 with open(
                     os.path.join("app", "templates", name, file), "w"
                 ) as new_file:
                     new_file.write(rendered_file)
             else:
-                rendered_file = Template(raw.read()).render(name=name)
                 with open(os.path.join("app", name, file), "w") as new_file:
                     new_file.write(rendered_file)
