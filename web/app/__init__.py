@@ -6,6 +6,9 @@ from flask_login import LoginManager
 from flask_admin import Admin
 from flask_mail import Mail
 from flask_paranoid import Paranoid
+from flask_pagedown import PageDown
+from flaskext.markdown import Markdown
+
 
 app = Flask(__name__)
 if app.config["ENV"] == "development":
@@ -21,10 +24,17 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = "auth.login"
-admin_app = Admin(app, name="Flask quickstart", template_mode="bootstrap3")
+admin_app = Admin(
+    app,
+    name="Flask quickstart",
+    template_mode="bootstrap3",
+    base_template="admin/my_base.html",
+)
 mail = Mail(app)
 paranoid = Paranoid(app)
 paranoid.redirect_view = "main.index"
+pagedown = PageDown(app)
+markdown = Markdown(app)
 
 from app.auth import auth_blueprint
 

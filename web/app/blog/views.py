@@ -12,4 +12,13 @@ from app.blog.forms import *
 @login_required
 @confirmation_required
 def index():
-    return render_template("blog/index.html", context={})
+    posts = Post.query.all()
+    return render_template("blog/index.html", **{"posts": posts})
+
+
+@blog_blueprint.route("/post/<id>", methods=["GET"])
+@login_required
+@confirmation_required
+def post(id):
+    post = Post.query.get(id)
+    return render_template("blog/post.html", **{"post": post})

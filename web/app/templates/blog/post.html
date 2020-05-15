@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+<a href="{{ url_for('blog.post', id=post.id) }}"><h1>{{ post.title }}</h1></a>
+<div class="">
+  {{post.content|markdown}}
+</div>
+{% endblock content %}

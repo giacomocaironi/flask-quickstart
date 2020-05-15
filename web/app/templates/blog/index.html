@@ -4,5 +4,13 @@
 {% endblock css %}
 
 {% block content %}
-<h1>Blog</h1>
+<hr>
+{% for post in posts %}
+  <div class="">
+    <a href="{{ url_for('blog.post', id=post.id) }}"><h1>{{ post.title }}</h1></a>
+    {{post.content|markdown}}
+  </div>
+<hr>
+{% endfor %}
+
 {% endblock content %}
