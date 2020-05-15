@@ -11,4 +11,4 @@ from app.{{name}}.forms import *
 @login_required
 @confirmation_required
 def index():
-    return render_template("{{name}}/index.html", context={})
+    return render_template("{{name}}/index.html", **{})
