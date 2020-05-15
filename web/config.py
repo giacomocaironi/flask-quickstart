@@ -16,6 +16,12 @@ class Config(object):
     DEBUG = False
     TESTING = False
 
+    # uploads
+    UPLOADED_DOCUMENTS_URL = "/upload/documents/"
+    UPLOADED_IMAGES_URL = "/uploads/images/"
+    UPLOADED_IMAGES_DEST = config("UPLOADED_IMAGES_DEST")
+    UPLOADED_DOCUMENTS_DEST = config("UPLOADED_DOCUMENTS_DEST")
+
 
 class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = config(

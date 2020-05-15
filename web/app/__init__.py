@@ -8,6 +8,13 @@ from flask_mail import Mail
 from flask_paranoid import Paranoid
 from flask_pagedown import PageDown
 from flaskext.markdown import Markdown
+from flask_uploads import (
+    UploadSet,
+    IMAGES,
+    DOCUMENTS,
+    configure_uploads,
+    patch_request_class,
+)
 
 
 app = Flask(__name__)
@@ -33,8 +40,16 @@ admin_app = Admin(
 mail = Mail(app)
 paranoid = Paranoid(app)
 paranoid.redirect_view = "main.index"
+
+# blog related
 pagedown = PageDown(app)
 markdown = Markdown(app)
+
+# upload related
+images = UploadSet("images", IMAGES)
+documents = UploadSet("documents", DOCUMENTS)
+configure_uploads(app, (images, documents))
+patch_request_class(app, 16 * 1024 * 1024)
 
 from app.auth import auth_blueprint
 
@@ -51,3 +66,5 @@ app.register_blueprint(main_blueprint, url_prefix="/")
 from app.blog import blog_blueprint
 
 app.register_blueprint(blog_blueprint, url_prefix="/blog")
+
+from app.uploads import *
